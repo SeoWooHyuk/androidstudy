@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,9 +32,31 @@ public class MainActivity6 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 list.add(etext.getText().toString());
+                lv.deferNotifyDataSetChanged();
                 lv.setAdapter(Aradpt);
+                etext.setText("");
             }
         });
+
+
+
+
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                for(int i = 0; i < list.size(); i++)
+                {
+                    if(position == i)
+                    {
+                        list.remove(i);
+                        lv.setAdapter(Aradpt);
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+
 
 
 
